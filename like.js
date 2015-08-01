@@ -1,16 +1,12 @@
 // No copyright, but don't copy, right?
 
-var prevTabID = 0;
 var clicks = 0;
+var like = document.getElementsByClassName("UFILikeLink");
 
-chrome.tabs.onSelectionChanged.addListener(function(tabId) {
-  prevTabID = tabId;
-  chrome.pageAction.show(prevTabID);
-});
-
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  prevTabID = tabs[0].id;
-  chrome.pageAction.show(prevTabId);
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    if (tab.url.indexOf("facebook.com") > -1) {
+        chrome.pageAction.show(tabId);
+    }
 });
 
 // Called when the user clicks on the page action.
@@ -19,14 +15,14 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     chrome.pageAction.setIcon({path: "dontlike.png", tabId: tab.id});
     chrome.pageAction.setTitle({title: "idontlike", tabId: tab.id});
     chrome.tabs.executeScript({
-    code: 'hideLike()'
-  });
+      code: 'for (index = 0; index < like.length; ++index) { like[index].style.display="none"; }'
+    });
   } else {
     chrome.pageAction.setIcon({path: "like.png", tabId: tab.id});
     chrome.pageAction.setTitle({title: "like", tabId: tab.id});
     chrome.tabs.executeScript({
-    code: 'showLike()'
-  });
+      code: 'for (index = 0; index < like.length; ++index) { like[index].style.display=""; }'
+    });
   }
   
   // wrap around
@@ -34,20 +30,3 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   if (clicks > 1)
     clicks = 0;
 });
-
-function hideLike() {
-  var index;
-  var like = document.getElementsByClassName("UFILikeLink");
-  for (index = 0; index < like.length; ++index) {
-    like[index].style.display="none";
-  }
-}
-
-function showLike() {
-  var index;
-  var like = document.getElementsByClassName("UFILikeLink");
-  for (index = 0; index < like.length; ++index) {
-    like[index].style.display="";
-  }
-}
-

@@ -11,11 +11,14 @@
     "default_title" : "idontlike"
   },
   "permissions": [
-    "https://www.facebook.com/*", "http://www.facebook.com/*", "tabs", "activeTab"
+    "tabs",
+    "https://www.facebook.com/*", 
+    "http://www.facebook.com/*"
   ],
   "content_scripts": [
     {
-     "matches": ["https://www.facebook.com/*", "http://www.facebook.com/*"],
+     "matches": ["https://www.facebook.com/*", 
+     "http://www.facebook.com/*"],
      "js": ["like.js"]
     }
   ],
