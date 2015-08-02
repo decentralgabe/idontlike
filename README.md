@@ -6,5 +6,5 @@ Fuctionality I will be adding:
 –Option page  
 &nbsp;&nbsp;–Enable idontlike by default  
 &nbsp;&nbsp;–Remember last state idontlike was in  
-–Likes avoided calculator (?) 
+–Likes avoided calculator (?)  
 –Hiding like buttons outside of Facebook  
